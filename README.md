@@ -2,7 +2,7 @@
 
 TLDR;
 
-run **train_and_test.py** on a directory of household images and their set of annotations.
+run **tester.py** on a directory of household images and their set of annotations.
 
 ---------
 
@@ -62,7 +62,7 @@ Any modules can be swapped out or used independently.  For specific tasks, direc
 are provided below.
 
 **1. Train and Test:**  to train and test on a set of images/frames,
-the **train_and_test.py** script is provided. The main purpose of this script is
+the **tester.py** script is provided. The main purpose of this script is
 to extract all face bounding boxes and head poses **features**.  This will take
 significant amount of time, hours, at ~1 sec / frame.
 
@@ -73,7 +73,7 @@ the end of feature extraction.
 
 To run, pass in the following arguments (change args as necessary):
 
-python train_and_test.py --test_frames_path test-frames --annotations_path Inderbir-annotations.csv --output_training_name output_training_data_test.csv --display_frame True --write_csv False
+python tester.py --test_frames_path test-frames --annotations_path Inderbir-annotations.csv --output_training_name output_training_data_test.csv --display_frame True --write_csv False
 
 Note: this script takes many hours, a day or more on large data sets. (~1 sec/frame)
 
@@ -81,7 +81,7 @@ After extracting all the features from the frames, you need to decide which pred
 use. The most complete is the thresholded model, which thresholds angles based on a person's
 position in the room to predict attention.
 
-To run the train_and_test.py script, you will need a directory of frames, and a csv file of the
+To run the tester.py script, you will need a directory of frames, and a csv file of the
 annotations for the facial features and true attention labels.  It uses **frame_reader.py**
 and **annotation_reader.py** scripts to traverse a directory and read a csv file.  See these
 scripts and the 'test-frames directory' and the 'Inderbir-annotations.csv' files for the
@@ -141,7 +141,7 @@ Annotation fields used in **face_roi.py**:
 Skip this step if using the threshold_model.py script.
 
 There are trained models using an SVM and random forest classifier based on the
-output features of the train_and_test.py script.  
+output features of the tester.py script.  
 
 See the **machine-learning-trainers** to train a predictor on the features
 instead of the thresholded coded model.  Note, these models are less documented and ready
@@ -153,9 +153,9 @@ These scripts will also test the training and validation data.
 
 **3. Test results evaluation:  optional**  
 
-After feature extraction from the train_and_test.py script, you can evaluate the overall accuracy
+After feature extraction from the tester.py script, you can evaluate the overall accuracy
 of the thresholded code model predictor by using the **test-thresholded-model.py** script.
-This may be redundant as the train_and_test.py script evaluates the accuracy, but this
+This may be redundant as the tester.py script evaluates the accuracy, but this
 test-thresholded-model.py lets you fine tune the classification, such as convert 1s to 2s.
 You can also swap out the classified and use this script to test other machine learning models,
 ie, random forest, SVM.
